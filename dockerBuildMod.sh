@@ -1,4 +1,4 @@
-# Copy BaseMod.java into ${PWD}/artifacts, then run this script
+# Copy the students BaseMod.java into ${PWD}/artifacts, then run this script.
 
 docker run -i --rm -v ${PWD}/artifacts:/artifacts fredxcoders/mod-build-env:latest /bin/bash << COMMANDS
 cd /home
