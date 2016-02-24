@@ -1,0 +1,27 @@
+#build with: 
+#docker build -f Dockerfile.buildEnv -t fredxcoders/mod-build-env:latest .
+
+FROM docker.io/picoded/ubuntu-openjdk-8-jdk   
+
+# Update aptitude with new repo
+RUN apt-get update
+
+# Install software 
+RUN apt-get install git wget unzip -y
+
+WORKDIR  /home
+
+RUN wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8-11.14.4.1563/forge-1.8-11.14.4.1563-mdk.zip 
+
+RUN unzip forge-1.8*
+
+RUN ./gradlew setupDecompWorkspace --refresh-dependencies
+
+RUN ./gradlew eclipse
+
+RUN rm -r src/main/*
+
+RUN git clone https://github.com/FredXCoders/BaseMod.git /tmp/BaseMod
+
+RUN cp -r /tmp/BaseMod/* src/main/
+
